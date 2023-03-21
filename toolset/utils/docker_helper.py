@@ -226,7 +226,7 @@ class DockerHelper:
                 sysctls=sysctl,
                 remove=True,
                 log_config={'type': None},
-                **extra_docker_args,
+                **extra_docker_args
                 )
 
             watch_thread = Thread(
