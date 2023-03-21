@@ -213,9 +213,9 @@ class DockerHelper:
                 print(self.benchmarker.config.extra_docker_runtime_args)
                 print(type(self.benchmarker.config.extra_docker_runtime_args))
                 print(len(self.benchmarker.config.extra_docker_runtime_args))
-                testlist = self.benchmarker.config.extra_docker_runtime_args[0].split(',')
-                print(testlist)
-                extra_docker_args = {kv.split(':')[0]:kv.split(':')[1] for kv in self.benchmarker.config.extra_docker_runtime_args[0].split(',')}
+                #extra_docker_args = {kv.split(':')[0]:kv.split(':')[1] for kv in self.benchmarker.config.extra_docker_runtime_args[0].split(',')}
+                extra_docker_args = {key: value for key, value in (pair.split(":") for pair in self.benchmarker.config.extra_docker_runtime_args)}
+                extra_docker_args = {key: int(value) if value.isnumeric() else value for key, value in extra_docker_args.items()}
                 print(extra_docker_args)
                 
             container = self.server.containers.run(
