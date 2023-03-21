@@ -203,6 +203,8 @@ class DockerHelper:
             # Override total memory limit allocated for the test container
             if self.benchmarker.config.test_container_memory is not None:
                 mem_limit = self.benchmarker.config.test_container_memory
+            else:
+                mem_limit = int(round(virtual_memory().total * .95))
                 
             # Convert extra docker runtime args to a dictionary
             extra_docker_args = []
