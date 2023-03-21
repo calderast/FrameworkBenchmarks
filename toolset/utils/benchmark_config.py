@@ -50,6 +50,8 @@ class BenchmarkConfig:
         self.server_docker_host = None
         self.database_docker_host = None
         self.client_docker_host = None
+        self.test_container_memory = args.test_container_memory
+        self.extra_docker_runtime_args = args.extra_docker_runtime_args
         self.network = None
 
         if self.network_mode is None:
