@@ -13,8 +13,6 @@ from toolset.databases import databases
 
 from psutil import virtual_memory
 
-# Default total memory limit allocated for the test container
-mem_limit = int(round(virtual_memory().total * .95))
 
 class DockerHelper:
     def __init__(self, benchmarker=None):
@@ -200,7 +198,7 @@ class DockerHelper:
             if self.benchmarker.config.mode == "debug":
                 ports = {test.port: test.port}
                 
-            # Override total memory limit allocated for the test container
+            # Total memory limit allocated for the test container
             if self.benchmarker.config.test_container_memory is not None:
                 mem_limit = self.benchmarker.config.test_container_memory
             else:
@@ -209,13 +207,12 @@ class DockerHelper:
             # Convert extra docker runtime args to a dictionary
             extra_docker_args = {}
             if self.benchmarker.config.extra_docker_runtime_args is not None:
-                print('self.benchmarker.config.extra_docker_runtime_args = ')
-                print(self.benchmarker.config.extra_docker_runtime_args)
-                print(type(self.benchmarker.config.extra_docker_runtime_args))
-                print(len(self.benchmarker.config.extra_docker_runtime_args))
                 extra_docker_args = {key: int(value) if value.isdigit() else value for key, value in (pair.split(":") for pair in self.benchmarker.config.extra_docker_runtime_args)}
-                print(extra_docker_args)
-                
+            
+            # Print container info
+            print("mem_limit = {}".format(mem_limit))
+            print("extra_docker_args = {}".format(extra_docker_args))
+              
             container = self.server.containers.run(
                 "techempower/tfb.test.%s" % test.name,
                 name=name,
@@ -231,7 +228,7 @@ class DockerHelper:
                 ulimits=ulimit,
                 mem_limit=mem_limit,
                 sysctls=sysctl,
-                remove=True,
+                remove=False,
                 log_config={'type': None},
                 **extra_docker_args
                 )
