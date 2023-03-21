@@ -189,7 +189,6 @@ def main(argv=None):
         help='List of cached query levels to benchmark')
     parser.add_argument(
         '--test-container-memory',
-        nargs='*',
         default=None,
         help='Amount of memory to be given to the test container')
     parser.add_argument(
