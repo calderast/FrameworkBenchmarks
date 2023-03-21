@@ -213,10 +213,11 @@ class DockerHelper:
                 print(self.benchmarker.config.extra_docker_runtime_args)
                 print(type(self.benchmarker.config.extra_docker_runtime_args))
                 print(len(self.benchmarker.config.extra_docker_runtime_args))
-                testlist = self.benchmarker.config.extra_docker_runtime_args.split(',')
+                testlist = self.benchmarker.config.extra_docker_runtime_args[0].split(',')
                 print(testlist)
-                extra_docker_args = {kv.split(':')[0]:kv.split(':')[1] for kv in self.benchmarker.config.extra_docker_runtime_args.split(',')}
-            
+                extra_docker_args = {kv.split(':')[0]:kv.split(':')[1] for kv in self.benchmarker.config.extra_docker_runtime_args[0].split(',')}
+                print(extra_docker_args)
+                
             container = self.server.containers.run(
                 "techempower/tfb.test.%s" % test.name,
                 name=name,
