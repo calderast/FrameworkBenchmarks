@@ -211,6 +211,8 @@ class DockerHelper:
             if self.benchmarker.config.extra_docker_runtime_args is not None:
                 print('self.benchmarker.config.extra_docker_runtime_args = ')
                 print(self.benchmarker.config.extra_docker_runtime_args)
+                print(type(self.benchmarker.config.extra_docker_runtime_args))
+                print(len(self.benchmarker.config.extra_docker_runtime_args))
                 testlist = self.benchmarker.config.extra_docker_runtime_args.split(',')
                 print(testlist)
                 extra_docker_args = {kv.split(':')[0]:kv.split(':')[1] for kv in self.benchmarker.config.extra_docker_runtime_args.split(',')}
