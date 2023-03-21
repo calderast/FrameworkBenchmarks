@@ -207,7 +207,7 @@ class DockerHelper:
                 mem_limit = int(round(virtual_memory().total * .95))
                 
             # Convert extra docker runtime args to a dictionary
-            extra_docker_args = []
+            extra_docker_args = {}
             if self.benchmarker.config.extra_docker_runtime_args is not None:
                 extra_docker_args = {key: value for key, value in (pair.split(":") for pair in self.benchmarker.config.extra_docker_runtime_args.split(","))}
             
