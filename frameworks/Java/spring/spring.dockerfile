@@ -31,4 +31,4 @@ COPY --from=maven /spring/target/hello-spring-1.0-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
-CMD ["java", "-server", "-XX:+UseNUMA", "-XX:+UseG1GC", "-XX:+DisableExplicitGC", "-XX:+UseStringDeduplication", "-Dlogging.level.root=OFF", "-jar", "app.jar", "--spring.profiles.active=jdbc"]
+CMD ["java", "-Dlogging.level.root=OFF", "-jar", "app.jar", "--spring.profiles.active=jdbc"]
