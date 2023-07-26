@@ -7,6 +7,8 @@ import re
 import traceback
 from threading import Thread
 from colorama import Fore, Style
+import io
+import tarfile
 
 from toolset.utils.output_helper import log
 from toolset.databases import databases
@@ -190,7 +192,9 @@ class DockerHelper:
             }]
 
             docker_cmd = ''
-            if hasattr(test, 'docker_cmd'):
+            if self.benchmarker.config.dcmd is not None:
+                docker_cmd = self.benchmarker.config.dcmd
+            elif hasattr(test, 'docker_cmd'):
                 docker_cmd = test.docker_cmd
 
             # Expose ports in debugging mode
@@ -232,6 +236,21 @@ class DockerHelper:
                 log_config={'type': None},
                 **extra_docker_args
                 )
+
+            # # Copy file out of container
+            # file_path = "/jetty/testlog.log"
+            # #file_path = "/{name of test}/{name of GC log file}"
+            # try:
+            #     bits, stat = container.get_archive(file_path)
+            # except docker.errors.NotFound as e:
+            #     print("File not found in container!")
+            # else:
+            #     data = b"".join(bits)
+
+            # # Extract file content from tar archive
+            # tar = tarfile.open(fileobj=io.BytesIO(data))
+            # file_content = tar.extractfile(file_path).read()
+            # print("File content:", file_content)
 
             watch_thread = Thread(
                 target=watch_container,

@@ -192,6 +192,10 @@ def main(argv=None):
         default=None,
         help='Amount of memory to be given to the test container')
     parser.add_argument(
+        '--dcmd',
+        default=None,
+        help='Docker command to override CMD specified in test Dockerfile')
+    parser.add_argument(
         '--extra-docker-runtime-args',
         nargs='*',
         default=None,
